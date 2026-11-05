@@ -14,11 +14,10 @@
         android:windowSoftInputMode="adjustResize"
         android:theme="@style/Theme.Zikirmatik">
 
-        <!-- Google AdMob Application ID (Test ID: ca-app-pub-3940256099942544~3347511713) -->
-        <!-- Play Store'a yüklemeden önce kendi AdMob App ID'niz ile değiştiriniz -->
+        <!-- Google AdMob Application ID -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-3207706111232143~7795478854" />
 
         <activity
             android:name=".MainActivity"

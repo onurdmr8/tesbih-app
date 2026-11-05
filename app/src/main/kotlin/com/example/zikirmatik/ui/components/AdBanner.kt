@@ -16,13 +16,9 @@ import com.google.android.gms.ads.AdView
 
 object AdConfig {
     /**
-     * Google'ın resmi Test Banner Reklam Birimi ID'si:
-     * ca-app-pub-3940256099942544/6300978111
-     *
-     * ÖNEMLİ: Google Play Store'a yüklemeden önce bu ID'yi AdMob panelinizden
-     * oluşturduğunuz gerçek Banner Reklam Birimi ID'si ile değiştiriniz.
+     * Google AdMob Banner Reklam Birimi Kimliği
      */
-    const val BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
+    const val BANNER_AD_UNIT_ID = "ca-app-pub-3207706111232143/9519624069"
 }
 
 @Composable
