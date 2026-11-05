@@ -11,13 +11,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 object InterstitialAdConfig {
     /**
-     * Google'ın resmi Test Geçiş Reklamı (Interstitial) Birimi Kimliği:
-     * ca-app-pub-3940256099942544/1033173712
-     *
-     * AdMob panelinizden "Geçiş (Interstitial)" reklam birimi oluşturduğunuzda
-     * size verilen ID'yi buraya yazabilirsiniz.
+     * Google AdMob Geçiş Reklamı (Interstitial) Birimi Kimliği
      */
-    const val INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"
+    const val INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3207706111232143/3333701697"
 
     // Reklamın kullanıcıyı rahatsız etmemesi için en az kaç turda bir ve kaç saniye arayla çıkacağı
     const val LAPS_BETWEEN_ADS = 3
