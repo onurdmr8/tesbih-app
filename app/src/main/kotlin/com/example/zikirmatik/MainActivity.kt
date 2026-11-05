@@ -10,11 +10,16 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.zikirmatik.ui.theme.ZikirmatikTheme
 import com.example.zikirmatik.ui.zikirmatik.ZikirmatikScreen
+import com.google.android.gms.ads.MobileAds
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Google Mobile Ads SDK başlatma (AdMob)
+        MobileAds.initialize(this) {}
+
         setContent {
             ZikirmatikTheme {
                 Surface(

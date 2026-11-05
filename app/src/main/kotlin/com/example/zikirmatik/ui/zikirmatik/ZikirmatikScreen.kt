@@ -1,5 +1,7 @@
 package com.example.zikirmatik.ui.zikirmatik
 
+import com.example.zikirmatik.ui.components.AdBanner
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -184,6 +186,9 @@ fun ZikirmatikScreen(
                     containerColor = primaryColor
                 )
             )
+        },
+        bottomBar = {
+            AdBanner()
         },
         containerColor = surfaceColor
     ) { innerPadding ->
