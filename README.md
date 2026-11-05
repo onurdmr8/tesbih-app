@@ -4,6 +4,13 @@ Modern, şık ve zengin özellikli bir dijital tesbih ve zikirmatik Android uygu
 
 ## ✨ Özellikler
 
+- **Çoklu Dil Desteği (Global Erişim)**:
+  - 🇹🇷 **Türkçe** (Varsayılan)
+  - 🇬🇧 **İngilizce** (Digital Tasbih & Dhikr)
+  - 🇸🇦 **Arapça** (المسبحة الإلكترونية والأذكار)
+  - 🇩🇪 **Almanca** (Digitaler Tasbih & Zikr)
+  - Cihazın sistem diline göre tüm arayüz, butonlar ve mesajlar otomatik olarak kendi dilinde açılır.
+
 - **Gerçekçi Dijital Zikirmatik Arayüzü**:
   - Ergonomik cihaz gövdesi ve fosforlu dijital LCD ekran.
   - 3D dokunsal sayaç butonu (basıldığında gerçekçi yaylanma animasyonu).
@@ -34,30 +41,26 @@ Modern, şık ve zengin özellikli bir dijital tesbih ve zikirmatik Android uygu
   - Metalik Titanyum
   - OLED Gece Siyahı (Pil tasarruflu karanlık mod)
 
-- **Google AdMob Reklam Entegrasyonu**:
-  - Ekranın alt kısmında kullanıcı deneyimini bozmayan sabit Banner reklam alanı.
-  - Geliştirme ve test aşamasında Google resmi test kimlikleri (`ca-app-pub-3940256099942544...`) kullanılmıştır.
+- **Gelişmiş Google AdMob Monetizasyonu**:
+  - **Sabit Alt Banner Reklam**: Ekranın alt kısmında kullanıcı deneyimini bozmayan sürekli gelir kaynağı.
+  - **Akıllı Geçiş Reklamı (Interstitial)**: Her 3 tur tamamlandığında ve en az 90 saniye arayla saygılı bir şekilde gösterilen yüksek eCPM gelirli geçiş reklamı.
 
 ---
 
 ## 💰 Reklam Geliri & Google Play Yayını (Nasıl Para Kazanılır?)
 
-1. **Google AdMob Hesabı Oluşturma**:
-   - [Google AdMob](https://admob.google.com) adresine gidip Google hesabınızla giriş yapın.
-   - Sol menüden **Uygulamalar > Uygulama Ekle** seçin ve Android platformunu seçin.
-   - Size verilen `ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy` formatındaki **Uygulama Kimliğini (App ID)** kopyalayın.
-   - Bu ID'yi `app/src/main/AndroidManifest.xml` dosyasındaki `APPLICATION_ID` meta-data kısmına yazın.
+1. **Google AdMob Hesabı**:
+   - [Google AdMob](https://admob.google.com) adresinden uygulamanız oluşturuldu.
+   - Uygulama Kimliği (`APPLICATION_ID`) ve Banner Birimi (`BANNER_AD_UNIT_ID`) kodlara entegre edildi.
 
-2. **Banner Reklam Birimi Oluşturma**:
-   - AdMob panelinizde uygulamanızın içine girip **Reklam Birimi Ekle > Banner** seçin.
-   - Size verilen `ca-app-pub-xxxxxxxxxxxxxxxx/zzzzzzzzzz` formatındaki **Reklam Birimi Kimliğini** kopyalayın.
-   - Bu ID'yi `app/src/main/kotlin/com/example/zikirmatik/ui/components/AdBanner.kt` içerisindeki `BANNER_AD_UNIT_ID` sabitine yapıştırın.
+2. **Geçiş (Interstitial) Reklam Birimi Ekleme**:
+   - AdMob panelinizde **Reklam Birimleri > Reklam Birimi Ekle > Geçiş (Interstitial)** seçin.
+   - Size verilen `ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy` kodunu `app/src/main/kotlin/com/example/zikirmatik/util/InterstitialAdManager.kt` içindeki `INTERSTITIAL_AD_UNIT_ID` kısmına yazarak geçiş reklamlarını da aktif edebilirsiniz.
 
 3. **Google Play Store'a Yükleme**:
-   - Google Play Console geliştirici hesabı açın (tek seferlik \$25).
-   - Android Studio üzerinden `Build > Generate Signed Bundle / APK > Android App Bundle (.aab)` oluşturun.
-   - Google Play Console'a yükleyip uygulamanızı yayınlayın.
-   - Reklamlar görüntülendikçe ve tıklandıkça geliriniz AdMob hesabınızda birikir ve her ay banka hesabınıza aktarılır.
+   - Google Play Console geliştirici hesabı açın.
+   - `./gradlew bundleRelease` komutu ile veya Android Studio'dan `.aab` dosyası oluşturun.
+   - Play Console'a yükleyip uygulamanızı yayınlayın.
 
 ---
 
@@ -68,13 +71,3 @@ Modern, şık ve zengin özellikli bir dijital tesbih ve zikirmatik Android uygu
 - **Architecture**: MVVM, StateFlow, Coroutines
 - **Target SDK**: Android 36 (Android 15+)
 - **Min SDK**: Android 24 (Android 7.0+)
-
-## 🚀 Derleme ve Çalıştırma
-
-```bash
-# Debug APK derleme
-./gradlew assembleDebug
-
-# Release AAB derleme (Play Store için)
-./gradlew bundleRelease
-```

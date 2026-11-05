@@ -1,5 +1,6 @@
 package com.example.zikirmatik.ui.zikirmatik
 
+import android.app.Activity
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.example.zikirmatik.data.DhikrPreferences
@@ -8,6 +9,7 @@ import com.example.zikirmatik.model.HistoryRecord
 import com.example.zikirmatik.model.PredefinedDhikrs
 import com.example.zikirmatik.model.TasbihTheme
 import com.example.zikirmatik.util.FeedbackManager
+import com.example.zikirmatik.util.InterstitialAdManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,6 +34,7 @@ class ZikirmatikViewModel(application: Application) : AndroidViewModel(applicati
 
     private val prefs = DhikrPreferences(application)
     private val feedbackManager = FeedbackManager(application)
+    private val interstitialAdManager = InterstitialAdManager(application)
 
     private val _uiState = MutableStateFlow(ZikirmatikState())
     val uiState: StateFlow<ZikirmatikState> = _uiState.asStateFlow()
@@ -110,6 +113,10 @@ class ZikirmatikViewModel(application: Application) : AndroidViewModel(applicati
                 history = prefs.getHistory()
             )
         }
+    }
+
+    fun onLapFinished(activity: Activity?) {
+        interstitialAdManager.onLapCompleted(activity)
     }
 
     fun decrement() {

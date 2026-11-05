@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">المسبحة الإلكترونية والأذكار</string>
+    <string name="total_label">المجموع</string>
+    <string name="lap_label">الشوط</string>
+    <string name="target_label">الهدف</string>
+    <string name="free_label">حر</string>
+    <string name="reset_btn">تصفير</string>
+    <string name="undo_btn">تراجع</string>
+    <string name="count_btn">تسبيح</string>
+    <string name="change_dhikr">تغيير الذكر</string>
+    <string name="target_chip">الهدف: %1$s</string>
+    <string name="congrats_completed">تهانينا! اكتمل %1$d ذكراً.</string>
+    <string name="remaining_count">المتبقي: %1$d</string>
+    <string name="fullscreen_hint">المس في أي مكان على الشاشة للتسبيح</string>
+    <string name="reset_dialog_title">إعادة ضبط العداد</string>
+    <string name="reset_dialog_message">هل أنت متأكد من رغبتك في إعادة ضبط العداد الحالي؟</string>
+    <string name="yes_reset">نعم، تصفير</string>
+    <string name="cancel">إلغاء</string>
+    <string name="dhikr_selection_title">اختيار الذكر</string>
+    <string name="add_custom_dhikr">إضافة ذكر مخصص</string>
+    <string name="target_selection_title">تحديد الهدف</string>
+    <string name="target_dialog_hint">سيتم تنبيهك بالاهتزاز والصوت عند الوصول إلى الهدف.</string>
+    <string name="custom_target_label">العدد المخصص</string>
+    <string name="apply_custom_target">تطبيق الهدف</string>
+    <string name="themes_title">اختر مظهر المسبحة</string>
+    <string name="history_title">سجل الأذكار</string>
+    <string name="clear_history">مسح</string>
+    <string name="no_history">لا توجد سجلات أذكار مكتملة بعد.</string>
+    <string name="add_dhikr_title">إضافة ذكر جديد</string>
+    <string name="field_dhikr_name">اسم الذكر *</string>
+    <string name="field_arabic">النص العربي (اختياري)</string>
+    <string name="field_meaning">المعنى أو الفضل (اختياري)</string>
+    <string name="field_target">العدد المستهدف (0 = حر)</string>
+    <string name="add_btn">إضافة</string>
+    <string name="sound_desc">الصوت</string>
+    <string name="vibration_desc">الاهتزاز</string>
+    <string name="fullscreen_desc">وضع ملء الشاشة</string>
+    <string name="themes_desc">المظاهر</string>
+    <string name="history_desc">السجل</string>
+</resources>

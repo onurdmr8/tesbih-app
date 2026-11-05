@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Digital Tasbih &amp; Dhikr</string>
+    <string name="total_label">Total</string>
+    <string name="lap_label">LAP</string>
+    <string name="target_label">TARGET</string>
+    <string name="free_label">FREE</string>
+    <string name="reset_btn">RESET</string>
+    <string name="undo_btn">UNDO</string>
+    <string name="count_btn">COUNT</string>
+    <string name="change_dhikr">Change Dhikr</string>
+    <string name="target_chip">Target: %1$s</string>
+    <string name="congrats_completed">Congratulations! %1$d dhikr completed.</string>
+    <string name="remaining_count">Remaining: %1$d</string>
+    <string name="fullscreen_hint">Tap anywhere on the screen to count</string>
+    <string name="reset_dialog_title">Reset Counter</string>
+    <string name="reset_dialog_message">Are you sure you want to reset the current count?</string>
+    <string name="yes_reset">Yes, Reset</string>
+    <string name="cancel">Cancel</string>
+    <string name="dhikr_selection_title">Select Dhikr</string>
+    <string name="add_custom_dhikr">Add Custom Dhikr</string>
+    <string name="target_selection_title">Set Dhikr Target</string>
+    <string name="target_dialog_hint">You will be notified with vibration and sound upon reaching the target.</string>
+    <string name="custom_target_label">Custom Target Number</string>
+    <string name="apply_custom_target">Apply Custom Target</string>
+    <string name="themes_title">Select Tasbih Theme</string>
+    <string name="history_title">Dhikr History</string>
+    <string name="clear_history">Clear</string>
+    <string name="no_history">No completed dhikr records yet.</string>
+    <string name="add_dhikr_title">Add New Dhikr</string>
+    <string name="field_dhikr_name">Dhikr Name *</string>
+    <string name="field_arabic">Arabic Text (Optional)</string>
+    <string name="field_meaning">Meaning / Virtue (Optional)</string>
+    <string name="field_target">Target Number (0 = Free)</string>
+    <string name="add_btn">Add</string>
+    <string name="sound_desc">Sound</string>
+    <string name="vibration_desc">Vibration</string>
+    <string name="fullscreen_desc">Full Screen Mode</string>
+    <string name="themes_desc">Themes</string>
+    <string name="history_desc">History</string>
+</resources>

@@ -1,7 +1,6 @@
 package com.example.zikirmatik.ui.zikirmatik
 
-import com.example.zikirmatik.ui.components.AdBanner
-
+import android.app.Activity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -52,7 +51,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -61,13 +59,13 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -81,14 +79,17 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.zikirmatik.R
 import com.example.zikirmatik.model.Dhikr
 import com.example.zikirmatik.model.TasbihTheme
+import com.example.zikirmatik.ui.components.AdBanner
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -96,6 +97,14 @@ fun ZikirmatikScreen(
     viewModel: ZikirmatikViewModel = viewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
+    val activity = LocalContext.current as? Activity
+
+    // Her tur tamamlandığında akıllı geçiş reklamını kontrol et
+    LaunchedEffect(state.showTargetReachedBanner) {
+        if (state.showTargetReachedBanner) {
+            viewModel.onLapFinished(activity)
+        }
+    }
 
     var showDhikrSheet by remember { mutableStateOf(false) }
     var showThemeSheet by remember { mutableStateOf(false) }
@@ -111,7 +120,6 @@ fun ZikirmatikScreen(
     val accentColor = Color(state.selectedTheme.accentHex)
 
     if (state.isFullScreenEnabled) {
-        // Full screen tap mode
         FullScreenZikirmatik(
             state = state,
             onTap = { viewModel.increment() },
@@ -128,13 +136,13 @@ fun ZikirmatikScreen(
                 title = {
                     Column {
                         Text(
-                            text = "Zikirmatik",
-                            fontSize = 20.sp,
+                            text = stringResource(R.string.app_name),
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White
                         )
                         Text(
-                            text = "Toplam: ${state.totalLifetimeCount}",
+                            text = "${stringResource(R.string.total_label)}: ${state.totalLifetimeCount}",
                             fontSize = 12.sp,
                             color = Color.White.copy(alpha = 0.75f)
                         )
@@ -145,7 +153,7 @@ fun ZikirmatikScreen(
                     IconButton(onClick = { viewModel.toggleSound() }) {
                         Icon(
                             imageVector = if (state.isSoundEnabled) Icons.AutoMirrored.Filled.VolumeUp else Icons.AutoMirrored.Filled.VolumeMute,
-                            contentDescription = "Ses",
+                            contentDescription = stringResource(R.string.sound_desc),
                             tint = if (state.isSoundEnabled) accentColor else Color.White.copy(alpha = 0.5f)
                         )
                     }
@@ -153,7 +161,7 @@ fun ZikirmatikScreen(
                     IconButton(onClick = { viewModel.toggleVibration() }) {
                         Icon(
                             imageVector = Icons.Default.Vibration,
-                            contentDescription = "Titreşim",
+                            contentDescription = stringResource(R.string.vibration_desc),
                             tint = if (state.isVibrationEnabled) accentColor else Color.White.copy(alpha = 0.5f)
                         )
                     }
@@ -161,7 +169,7 @@ fun ZikirmatikScreen(
                     IconButton(onClick = { viewModel.toggleFullScreen() }) {
                         Icon(
                             imageVector = Icons.Default.Fullscreen,
-                            contentDescription = "Tam Ekran Modu",
+                            contentDescription = stringResource(R.string.fullscreen_desc),
                             tint = Color.White
                         )
                     }
@@ -169,7 +177,7 @@ fun ZikirmatikScreen(
                     IconButton(onClick = { showThemeSheet = true }) {
                         Icon(
                             imageVector = Icons.Default.Palette,
-                            contentDescription = "Temalar",
+                            contentDescription = stringResource(R.string.themes_desc),
                             tint = Color.White
                         )
                     }
@@ -177,7 +185,7 @@ fun ZikirmatikScreen(
                     IconButton(onClick = { showHistorySheet = true }) {
                         Icon(
                             imageVector = Icons.Default.History,
-                            contentDescription = "Geçmiş",
+                            contentDescription = stringResource(R.string.history_desc),
                             tint = Color.White
                         )
                     }
@@ -228,7 +236,7 @@ fun ZikirmatikScreen(
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Tebrikler! ${state.target} zikir tamamlandı.",
+                                text = stringResource(R.string.congrats_completed, state.target),
                                 fontWeight = FontWeight.Bold,
                                 color = Color.Black,
                                 fontSize = 14.sp
@@ -310,12 +318,12 @@ fun ZikirmatikScreen(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
-                                text = "Kalan: ${maxOf(0, state.target - state.count)}",
+                                text = stringResource(R.string.remaining_count, maxOf(0, state.target - state.count)),
                                 fontSize = 11.sp,
                                 color = Color.White.copy(alpha = 0.6f)
                             )
                             Text(
-                                text = "Hedef: ${state.target}",
+                                text = stringResource(R.string.target_chip, state.target.toString()),
                                 fontSize = 11.sp,
                                 color = accentColor
                             )
@@ -324,7 +332,7 @@ fun ZikirmatikScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Physical Zikirmatik Device
             PhysicalZikirmatikDevice(
@@ -341,13 +349,13 @@ fun ZikirmatikScreen(
                 onTargetClick = { showTargetDialog = true }
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Quick Dhikr Switcher Chips
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp),
+                    .padding(bottom = 4.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 OutlinedButton(
@@ -355,7 +363,7 @@ fun ZikirmatikScreen(
                     border = BorderStroke(1.dp, accentColor.copy(alpha = 0.5f)),
                     shape = RoundedCornerShape(20.dp)
                 ) {
-                    Text("Zikir Değiştir", color = Color.White, fontSize = 13.sp)
+                    Text(stringResource(R.string.change_dhikr), color = Color.White, fontSize = 13.sp)
                 }
 
                 OutlinedButton(
@@ -364,7 +372,7 @@ fun ZikirmatikScreen(
                     shape = RoundedCornerShape(20.dp)
                 ) {
                     Text(
-                        if (state.target > 0) "Hedef: ${state.target}" else "Hedef: ∞",
+                        if (state.target > 0) stringResource(R.string.target_chip, state.target.toString()) else stringResource(R.string.target_chip, "∞"),
                         color = accentColor,
                         fontSize = 13.sp
                     )
@@ -377,8 +385,8 @@ fun ZikirmatikScreen(
     if (showResetDialog) {
         AlertDialog(
             onDismissRequest = { showResetDialog = false },
-            title = { Text("Sayacı Sıfırla") },
-            text = { Text("Mevcut sayacınızı (${state.count}) sıfırlamak istediğinizden emin misiniz?") },
+            title = { Text(stringResource(R.string.reset_dialog_title)) },
+            text = { Text(stringResource(R.string.reset_dialog_message)) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -387,12 +395,12 @@ fun ZikirmatikScreen(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text("Evet, Sıfırla")
+                    Text(stringResource(R.string.yes_reset))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showResetDialog = false }) {
-                    Text("İptal")
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )
@@ -477,11 +485,10 @@ fun PhysicalZikirmatikDevice(
     onResetClick: () -> Unit,
     onTargetClick: () -> Unit
 ) {
-    // Outer ergonomic body of the digital tasbih device
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(390.dp)
+            .height(380.dp)
             .shadow(24.dp, shape = RoundedCornerShape(topStart = 80.dp, topEnd = 80.dp, bottomStart = 110.dp, bottomEnd = 110.dp))
             .clip(RoundedCornerShape(topStart = 80.dp, topEnd = 80.dp, bottomStart = 110.dp, bottomEnd = 110.dp))
             .background(
@@ -498,38 +505,37 @@ fun PhysicalZikirmatikDevice(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 26.dp, start = 24.dp, end = 24.dp, bottom = 24.dp),
+                .padding(top = 22.dp, start = 24.dp, end = 24.dp, bottom = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Digital LCD Display Screen
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.85f)
-                    .height(95.dp)
+                    .height(90.dp)
                     .shadow(8.dp, RoundedCornerShape(16.dp))
                     .clip(RoundedCornerShape(16.dp))
                     .background(Color(0xFF0F1713))
                     .border(BorderStroke(2.dp, Color(0xFF2C3E34)), RoundedCornerShape(16.dp))
-                    .padding(horizontal = 14.dp, vertical = 8.dp)
+                    .padding(horizontal = 14.dp, vertical = 6.dp)
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    // Small indicators
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "TUR: $lapCount",
+                            text = "${stringResource(R.string.lap_label)}: $lapCount",
                             color = Color(0xFF68D391),
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily.Monospace
                         )
                         Text(
-                            text = if (target > 0) "HEDEF: $target" else "SERBEST",
+                            text = if (target > 0) "${stringResource(R.string.target_label)}: $target" else stringResource(R.string.free_label),
                             color = Color(0xFF68D391),
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
@@ -537,10 +543,9 @@ fun PhysicalZikirmatikDevice(
                         )
                     }
 
-                    // Main Counter Digits
                     Text(
                         text = String.format("%05d", count),
-                        fontSize = 44.sp,
+                        fontSize = 42.sp,
                         fontWeight = FontWeight.Black,
                         fontFamily = FontFamily.Monospace,
                         color = Color(0xFF81E6D9),
@@ -551,15 +556,14 @@ fun PhysicalZikirmatikDevice(
                 }
             }
 
-            Spacer(modifier = Modifier.height(18.dp))
+            Spacer(modifier = Modifier.height(14.dp))
 
-            // Sub-buttons Row (Reset & Decrement)
+            // Sub-buttons Row
             Row(
                 modifier = Modifier.fillMaxWidth(0.75f),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Reset small button
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Box(
                         modifier = Modifier
@@ -572,13 +576,13 @@ fun PhysicalZikirmatikDevice(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Refresh,
-                            contentDescription = "Sıfırla",
+                            contentDescription = stringResource(R.string.reset_btn),
                             tint = Color.White,
                             modifier = Modifier.size(18.dp)
                         )
                     }
                     Text(
-                        text = "SIFIRLA",
+                        text = stringResource(R.string.reset_btn),
                         fontSize = 9.sp,
                         color = Color.White.copy(alpha = 0.7f),
                         fontWeight = FontWeight.Bold,
@@ -586,7 +590,6 @@ fun PhysicalZikirmatikDevice(
                     )
                 }
 
-                // Decrement (-1) small button
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Box(
                         modifier = Modifier
@@ -599,13 +602,13 @@ fun PhysicalZikirmatikDevice(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Remove,
-                            contentDescription = "Geri Al",
+                            contentDescription = stringResource(R.string.undo_btn),
                             tint = Color.White,
                             modifier = Modifier.size(18.dp)
                         )
                     }
                     Text(
-                        text = "GERİ AL",
+                        text = stringResource(R.string.undo_btn),
                         fontSize = 9.sp,
                         color = Color.White.copy(alpha = 0.7f),
                         fontWeight = FontWeight.Bold,
@@ -627,7 +630,7 @@ fun PhysicalZikirmatikDevice(
 
             Box(
                 modifier = Modifier
-                    .size(140.dp)
+                    .size(135.dp)
                     .scale(scale)
                     .shadow(16.dp, CircleShape)
                     .clip(CircleShape)
@@ -648,10 +651,9 @@ fun PhysicalZikirmatikDevice(
                     ),
                 contentAlignment = Alignment.Center
             ) {
-                // Inner concentric groove ring
                 Box(
                     modifier = Modifier
-                        .size(105.dp)
+                        .size(100.dp)
                         .clip(CircleShape)
                         .background(
                             Brush.linearGradient(
@@ -666,15 +668,15 @@ fun PhysicalZikirmatikDevice(
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = "ÇEK",
+                            text = stringResource(R.string.count_btn),
                             fontWeight = FontWeight.ExtraBold,
-                            fontSize = 22.sp,
+                            fontSize = 20.sp,
                             color = Color(0xFF1A202C)
                         )
                         Text(
                             text = "+1",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp,
+                            fontSize = 13.sp,
                             color = Color(0xFF2D3748)
                         )
                     }
@@ -718,7 +720,6 @@ fun FullScreenZikirmatik(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            // Header with Exit Full Screen Button
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -740,7 +741,6 @@ fun FullScreenZikirmatik(
                 }
             }
 
-            // Big Center Counter
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 if (state.currentDhikr.arabic.isNotBlank()) {
                     Text(
@@ -763,22 +763,21 @@ fun FullScreenZikirmatik(
 
                 if (state.target > 0) {
                     Text(
-                        text = "Hedef: ${state.target}  •  Tur: ${state.lapCount}",
+                        text = "${stringResource(R.string.target_label)}: ${state.target}  •  ${stringResource(R.string.lap_label)}: ${state.lapCount}",
                         fontSize = 18.sp,
                         color = accentColor
                     )
                 } else {
                     Text(
-                        text = "Serbest Zikir  •  Tur: ${state.lapCount}",
+                        text = "${stringResource(R.string.free_label)}  •  ${stringResource(R.string.lap_label)}: ${state.lapCount}",
                         fontSize = 18.sp,
                         color = Color.White.copy(alpha = 0.7f)
                     )
                 }
             }
 
-            // Hint at bottom
             Text(
-                text = "Saymak için ekranda herhangi bir yere dokunun",
+                text = stringResource(R.string.fullscreen_hint),
                 fontSize = 14.sp,
                 color = Color.White.copy(alpha = 0.5f),
                 textAlign = TextAlign.Center
@@ -798,11 +797,11 @@ fun TargetSelectionDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Zikir Hedefi Belirle") },
+        title = { Text(stringResource(R.string.target_selection_title)) },
         text = {
             Column {
                 Text(
-                    "Hedefe ulaştığınızda özel titreşim ve ses ile uyarılırsınız.",
+                    stringResource(R.string.target_dialog_hint),
                     fontSize = 13.sp,
                     color = Color.Gray
                 )
@@ -827,7 +826,7 @@ fun TargetSelectionDialog(
                         FilterChip(
                             selected = currentTarget == target,
                             onClick = { onTargetSelected(target) },
-                            label = { Text(if (target == 0) "Serbest (∞)" else target.toString()) }
+                            label = { Text(if (target == 0) "∞" else target.toString()) }
                         )
                     }
                 }
@@ -835,7 +834,7 @@ fun TargetSelectionDialog(
                 OutlinedTextField(
                     value = customInput,
                     onValueChange = { customInput = it.filter { char -> char.isDigit() } },
-                    label = { Text("Özel Hedef Sayısı") },
+                    label = { Text(stringResource(R.string.custom_target_label)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -851,12 +850,12 @@ fun TargetSelectionDialog(
                 },
                 enabled = customInput.isNotBlank() && (customInput.toIntOrNull() ?: 0) > 0
             ) {
-                Text("Özel Hedefi Uygula")
+                Text(stringResource(R.string.apply_custom_target))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Kapat")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
@@ -887,7 +886,7 @@ fun DhikrSelectionSheet(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Zikir Seçimi",
+                    text = stringResource(R.string.dhikr_selection_title),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -897,7 +896,7 @@ fun DhikrSelectionSheet(
                 ) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = null)
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("Özel Zikir Ekle")
+                    Text(stringResource(R.string.add_custom_dhikr))
                 }
             }
 
@@ -948,7 +947,7 @@ fun DhikrSelectionSheet(
                                     )
                                 }
                                 Text(
-                                    text = if (dhikr.defaultTarget > 0) "Önerilen Hedef: ${dhikr.defaultTarget}" else "Hedef: Serbest",
+                                    text = if (dhikr.defaultTarget > 0) "${stringResource(R.string.target_label)}: ${dhikr.defaultTarget}" else stringResource(R.string.free_label),
                                     fontSize = 11.sp,
                                     color = MaterialTheme.colorScheme.outline
                                 )
@@ -982,33 +981,33 @@ fun AddCustomDhikrDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Yeni Zikir Ekle") },
+        title = { Text(stringResource(R.string.add_dhikr_title)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
                     value = title,
                     onValueChange = { title = it },
-                    label = { Text("Zikir Adı *") },
+                    label = { Text(stringResource(R.string.field_dhikr_name)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
                     value = arabic,
                     onValueChange = { arabic = it },
-                    label = { Text("Arapça Metin (İsteğe bağlı)") },
+                    label = { Text(stringResource(R.string.field_arabic)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
                     value = meaning,
                     onValueChange = { meaning = it },
-                    label = { Text("Anlamı / Fazileti (İsteğe bağlı)") },
+                    label = { Text(stringResource(R.string.field_meaning)) },
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
                     value = targetText,
                     onValueChange = { targetText = it.filter { char -> char.isDigit() } },
-                    label = { Text("Hedef Sayı (0 = Serbest)") },
+                    label = { Text(stringResource(R.string.field_target)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -1022,12 +1021,12 @@ fun AddCustomDhikrDialog(
                 },
                 enabled = title.isNotBlank()
             ) {
-                Text("Ekle")
+                Text(stringResource(R.string.add_btn))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("İptal")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
@@ -1047,7 +1046,7 @@ fun ThemeSelectionSheet(
                 .padding(16.dp)
         ) {
             Text(
-                text = "Zikirmatik Teması Seçin",
+                text = stringResource(R.string.themes_title),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -1125,12 +1124,12 @@ fun HistorySheet(
             ) {
                 Column {
                     Text(
-                        text = "Zikir Geçmişi",
+                        text = stringResource(R.string.history_title),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "Toplam Çekilen Zikir: $totalCount",
+                        text = "${stringResource(R.string.total_label)}: $totalCount",
                         fontSize = 13.sp,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.SemiBold
@@ -1138,7 +1137,7 @@ fun HistorySheet(
                 }
                 if (history.isNotEmpty()) {
                     TextButton(onClick = onClearHistory) {
-                        Text("Temizle", color = MaterialTheme.colorScheme.error)
+                        Text(stringResource(R.string.clear_history), color = MaterialTheme.colorScheme.error)
                     }
                 }
             }
@@ -1153,7 +1152,7 @@ fun HistorySheet(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Henüz tamamlanmış bir zikir kaydı bulunmuyor.",
+                        text = stringResource(R.string.no_history),
                         color = MaterialTheme.colorScheme.outline,
                         fontSize = 14.sp
                     )

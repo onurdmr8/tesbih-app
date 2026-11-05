@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Digitaler Tasbih &amp; Zikr</string>
+    <string name="total_label">Gesamt</string>
+    <string name="lap_label">RUNDE</string>
+    <string name="target_label">ZIEL</string>
+    <string name="free_label">FREI</string>
+    <string name="reset_btn">ZURÜCKSETZEN</string>
+    <string name="undo_btn">RÜCKGÄNGIG</string>
+    <string name="count_btn">ZÄHLEN</string>
+    <string name="change_dhikr">Zikr wechseln</string>
+    <string name="target_chip">Ziel: %1$s</string>
+    <string name="congrats_completed">Glückwunsch! %1$d Zikr abgeschlossen.</string>
+    <string name="remaining_count">Verbleibend: %1$d</string>
+    <string name="fullscreen_hint">Tippen Sie überall auf den Bildschirm zum Zählen</string>
+    <string name="reset_dialog_title">Zähler zurücksetzen</string>
+    <string name="reset_dialog_message">Möchten Sie den aktuellen Zählerstand wirklich zurücksetzen?</string>
+    <string name="yes_reset">Ja, zurücksetzen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="dhikr_selection_title">Zikr auswählen</string>
+    <string name="add_custom_dhikr">Eigenen Zikr hinzufügen</string>
+    <string name="target_selection_title">Ziel festlegen</string>
+    <string name="target_dialog_hint">Beim Erreichen des Ziels werden Sie durch Vibration und Ton benachrichtigt.</string>
+    <string name="custom_target_label">Eigene Zielanzahl</string>
+    <string name="apply_custom_target">Ziel anwenden</string>
+    <string name="themes_title">Tasbih-Design wählen</string>
+    <string name="history_title">Zikr-Verlauf</string>
+    <string name="clear_history">Löschen</string>
+    <string name="no_history">Noch kein Verlauf vorhanden.</string>
+    <string name="add_dhikr_title">Neuen Zikr hinzufügen</string>
+    <string name="field_dhikr_name">Zikr-Name *</string>
+    <string name="field_arabic">Arabischer Text (Optional)</string>
+    <string name="field_meaning">Bedeutung (Optional)</string>
+    <string name="field_target">Zielanzahl (0 = Frei)</string>
+    <string name="add_btn">Hinzufügen</string>
+    <string name="sound_desc">Ton</string>
+    <string name="vibration_desc">Vibration</string>
+    <string name="fullscreen_desc">Vollbildmodus</string>
+    <string name="themes_desc">Designs</string>
+    <string name="history_desc">Verlauf</string>
+</resources>

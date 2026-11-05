@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">Zikirmatik &amp; Tesbih</string>
+    <string name="total_label">Toplam</string>
+    <string name="lap_label">TUR</string>
+    <string name="target_label">HEDEF</string>
+    <string name="free_label">SERBEST</string>
+    <string name="reset_btn">SIFIRLA</string>
+    <string name="undo_btn">GERİ AL</string>
+    <string name="count_btn">ÇEK</string>
+    <string name="change_dhikr">Zikir Değiştir</string>
+    <string name="target_chip">Hedef: %1$s</string>
+    <string name="congrats_completed">Tebrikler! %1$d zikir tamamlandı.</string>
+    <string name="remaining_count">Kalan: %1$d</string>
+    <string name="fullscreen_hint">Saymak için ekranda herhangi bir yere dokunun</string>
+    <string name="reset_dialog_title">Sayacı Sıfırla</string>
+    <string name="reset_dialog_message">Mevcut sayacınızı sıfırlamak istediğinizden emin misiniz?</string>
+    <string name="yes_reset">Evet, Sıfırla</string>
+    <string name="cancel">İptal</string>
+    <string name="dhikr_selection_title">Zikir Seçimi</string>
+    <string name="add_custom_dhikr">Özel Zikir Ekle</string>
+    <string name="target_selection_title">Zikir Hedefi Belirle</string>
+    <string name="target_dialog_hint">Hedefe ulaştığınızda özel titreşim ve ses ile uyarılırsınız.</string>
+    <string name="custom_target_label">Özel Hedef Sayısı</string>
+    <string name="apply_custom_target">Özel Hedefi Uygula</string>
+    <string name="themes_title">Zikirmatik Teması Seçin</string>
+    <string name="history_title">Zikir Geçmişi</string>
+    <string name="clear_history">Temizle</string>
+    <string name="no_history">Henüz tamamlanmış bir zikir kaydı bulunmuyor.</string>
+    <string name="add_dhikr_title">Yeni Zikir Ekle</string>
+    <string name="field_dhikr_name">Zikir Adı *</string>
+    <string name="field_arabic">Arapça Metin (İsteğe bağlı)</string>
+    <string name="field_meaning">Anlamı / Fazileti (İsteğe bağlı)</string>
+    <string name="field_target">Hedef Sayı (0 = Serbest)</string>
+    <string name="add_btn">Ekle</string>
+    <string name="sound_desc">Ses</string>
+    <string name="vibration_desc">Titreşim</string>
+    <string name="fullscreen_desc">Tam Ekran Modu</string>
+    <string name="themes_desc">Temalar</string>
+    <string name="history_desc">Geçmiş</string>
 </resources>
